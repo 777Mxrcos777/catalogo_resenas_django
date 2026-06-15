@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Inicio - Catálogo y Reseñas{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <div class="container">
+        <h1>Bienvenido a Catálogo y Reseñas</h1>
+        <p>Descubre productos, comparte tu opinión y ayuda a otros a elegir mejor</p>
+        <a href="{% url 'lista_productos' %}" class="btn btn-primary">Ver Productos</a>
+    </div>
+</div>
+
+<div class="features">
+    <div class="container">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛍️</div>
+                <h3>Explora Productos</h3>
+                <p>Encuentra lo que necesitas en nuestro catálogo</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3>Lee Reseñas</h3>
+                <p>Opiniones reales de otros usuarios</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✍️</div>
+                <h3>Comparte tu Opinión</h3>
+                <p>Califica y comenta los productos que has probado</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>Top 5</h3>
+                <p>Descubre los productos mejor calificados</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

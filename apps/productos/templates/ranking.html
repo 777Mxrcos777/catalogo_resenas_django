@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Top 5 - Mejores Productos{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="page-title">🏆 Top 5 Productos Mejor Calificados</h1>
+    
+    <div class="ranking-container">
+        {% for producto in productos_top %}
+        <div class="ranking-card">
+            <div class="ranking-number">{{ forloop.counter }}</div>
+            <div class="ranking-info">
+                <h3>{{ producto.nombre }}</h3>
+                <p class="producto-categoria">{{ producto.id_categoria.nombre|default:"Sin categoría" }}</p>
+                <div class="producto-rating">
+                    <span class="stars">
+                        {% if producto.promedio %}
+                            {% with promedio=producto.promedio|floatformat:1 %}
+                                {% if promedio >= 4.5 %}⭐⭐⭐⭐⭐
+                                {% elif promedio >= 3.5 %}⭐⭐⭐⭐
+                                {% elif promedio >= 2.5 %}⭐⭐⭐
+                                {% elif promedio >= 1.5 %}⭐⭐
+                                {% else %}⭐
+                                {% endif %}
+                                ({{ promedio }})
+                            {% endwith %}
+                        {% else %}
+                            ⭐ Sin calificaciones
+                        {% endif %}
+                    </span>
+                </div>
+                <a href="{% url 'detalle_producto' producto.id_producto %}" class="btn-detail">Ver Detalle</a>
+            </div>
+        </div>
+        {% empty %}
+        <p>No hay productos con calificaciones aún.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

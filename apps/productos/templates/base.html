@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Catálogo y Reseñas{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'productos/css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="{% url 'home' %}" class="logo">📚 Catálogo y Reseñas</a>
+                <ul class="nav-links">
+                    <li><a href="{% url 'home' %}">Inicio</a></li>
+                    <li><a href="{% url 'lista_productos' %}">Productos</a></li>
+                    <li><a href="{% url 'ranking' %}">Top 5</a></li>
+                    <li><a href="/admin/">Admin</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Catálogo y Reseñas - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'productos/js/script.js' %}"></script>
+</body>
+</html>

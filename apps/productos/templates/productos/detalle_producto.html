@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ producto.nombre }} - Detalle{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="detalle-container">
+        <div class="detalle-header">
+            <a href="{% url 'lista_productos' %}" class="btn-back">← Volver a productos</a>
+            <h1>{{ producto.nombre }}</h1>
+        </div>
+
+        <div class="detalle-grid">
+            <div class="detalle-info">
+                <div class="info-card">
+                    <div class="producto-icon-grande">📦</div>
+                    <p class="producto-categoria">
+                        {{ producto.id_categoria.nombre|default:"Sin categoría" }}
+                    </p>
+                    <p class="producto-precio-grande">${{ producto.precio }}</p>
+                    <div class="producto-rating-detalle">
+                        <span class="stars">
+                            {% if producto.promedio_calificaciones %}
+                                {% with promedio=producto.promedio_calificaciones|floatformat:1 %}
+                                    {% if promedio >= 4.5 %}⭐⭐⭐⭐⭐
+                                    {% elif promedio >= 3.5 %}⭐⭐⭐⭐
+                                    {% elif promedio >= 2.5 %}⭐⭐⭐
+                                    {% elif promedio >= 1.5 %}⭐⭐
+                                    {% else %}⭐
+                                    {% endif %}
+                                    ({{ promedio }})
+                                {% endwith %}
+                            {% else %}
+                                ⭐ Sin calificaciones
+                            {% endif %}
+                        </span>
+                        <span class="review-count">
+                            {{ producto.resenas.count }} reseñas
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detalle-resenas">
+                <h2>Reseñas de usuarios</h2>
+                {% for resena in producto.resenas.all %}
+                    {% if resena.estado == 'aprobada' %}
+                    <div class="resena-card">
+                        <div class="resena-header">
+                            <strong>{{ resena.id_usuario.nombre }}</strong>
+                            <span class="resena-calificacion">
+                                {% for i in "12345"|make_list %}
+                                    {% if forloop.counter <= resena.calificacion %}⭐{% else %}☆{% endif %}
+                                {% endfor %}
+                                ({{ resena.calificacion }}/5)
+                            </span>
+                        </div>
+                        <p class="resena-texto">{{ resena.texto|default:"Sin comentario" }}</p>
+                        <small class="resena-fecha">{{ resena.fecha_creacion|date:"d/m/Y" }}</small>
+                    </div>
+                    {% endif %}
+                {% empty %}
+                    <p>No hay reseñas para este producto aún. ¡Sé el primero en comentar!</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
