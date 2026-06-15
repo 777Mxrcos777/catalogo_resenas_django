@@ -25,7 +25,7 @@
                     <span class="stars">⭐ {{ producto.promedio_calificaciones|default:"0" }}</span>
                     <span class="review-count">({{ producto.resenas.count }} reseñas)</span>
                 </div>
-                <a href="{% url 'detalle_producto' producto.id_producto %}" class="btn btn-detail">Ver Detalle</a>
+               <a href="/productos/{{ producto.id_producto }}/" class="btn btn-detail">Ver Detalle</a>
             </div>
         </div>
         {% empty %}
