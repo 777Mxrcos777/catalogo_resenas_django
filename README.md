@@ -1,31 +1,78 @@
-# Sistema de Catálogo y Reseñas
+# 📚 Catálogo y Reseñas
 
-Proyecto Django para administrar un catálogo de productos y permitir a usuarios registrar reseñas con calificación.  
-Incluye promedio por producto y ranking simple.
+Sistema web desarrollado en **Django 5.2** que permite administrar un catálogo de productos y gestionar reseñas con calificaciones. Los usuarios pueden explorar productos, ver su puntuación promedio, escribir reseñas y consultar el ranking de los mejor valorados.
 
-## Requisitos
+---
 
-- Python 3.12 o superior
-- Django 5.2
+## 🚀 Tecnologías utilizadas
 
-## Instalación y ejecución
+- **Python 3.13**
+- **Django 5.2**
+- **SQLite** (base de datos por defecto)
+- **CSS personalizado** (sin framework externo)
+- **HTML5 + JavaScript** (búsqueda en tiempo real)
 
-Sigue estos pasos en tu terminal:
+---
 
-```bash
-# 1. Crear y activar entorno virtual
+## 📁 Estructura del proyecto
+
+catalogo_resenas/
+├── config/ # Configuración del proyecto
+│ ├── settings.py
+│ └── urls.py
+├── apps/ # Aplicaciones del sistema
+│ ├── productos/ # Gestión de productos y categorías
+│ ├── usuarios/ # Gestión de usuarios
+│ ├── resenas/ # Gestión de reseñas
+│ └── ventas/ # Gestión de ventas y clientes
+├── templates/ # Plantillas globales
+│ ├── base.html
+│ ├── index.html
+│ └── productos/
+│ ├── lista_productos.html
+│ ├── detalle_producto.html
+│ └── crear_resena.html
+├── static/ # Archivos estáticos (CSS, JS)
+│ └── css/
+│ └── estilos.css
+├── manage.py
+├── requirements.txt
+└── README.md
+
+
+---
+
+## 📦 Instalación y ejecución
+
+Sigue estos pasos para levantar el proyecto en tu computadora:
+
+### 1️⃣ Clonar el repositorio
+
+git clone https://github.com/777Mxrcos777/catalogo_resenas_django.git
+cd catalogo_resenas_django
+
+2️⃣ Crear y activar entorno virtual
+
 python -m venv venv
-venv\Scripts\activate      # En Windows
-# source venv/bin/activate # En Linux/Mac
+venv\Scripts\actívate
 
-# 2. Instalar dependencias
+3️⃣ Instalar dependencias
+
 pip install -r requirements.txt
 
-# 3. Aplicar migraciones
+4️⃣ Aplicar migraciones
+
 python manage.py migrate
 
-# 4. Crear superusuario (admin)
+5️⃣ Crear superusuario (admin)
+
 python manage.py createsuperuser
 
-# 5. Ejecutar el servidor
+6️⃣ Ejecutar el servidor
+
 python manage.py runserver
+
+🔐 Acceso al panel de administración
+Usuario: admin
+
+Contraseña: 1234
