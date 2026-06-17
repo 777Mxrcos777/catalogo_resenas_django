@@ -20,6 +20,7 @@ class Producto(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     id_categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True, blank=True)
     fecha_creacion = models.DateTimeField(default=timezone.now)
+    imagen_url = models.URLField(max_length=500, blank=True, null=True, default='')
 
     def __str__(self):
         return f"{self.nombre} - ${self.precio}"

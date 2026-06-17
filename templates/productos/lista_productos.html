@@ -11,9 +11,9 @@
         <input type="text" id="searchInput" placeholder="🔍 Buscar productos..." class="search-input">
     </div>
 
-    <div class="productos-grid" id="productosGrid">
+    <div class="productos-grid">
         {% for producto in productos %}
-        <div class="producto-card" data-nombre="{{ producto.nombre|lower }}">
+        <div class="producto-card">
             <div class="producto-imagen">
                 {% if producto.imagen_url %}
                     <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}" class="producto-img">
@@ -26,10 +26,10 @@
                 <p class="producto-categoria">{{ producto.id_categoria.nombre|default:"Sin categoría" }}</p>
                 <p class="producto-precio">${{ producto.precio }}</p>
                 <div class="producto-rating">
-                    <span class="stars">⭐ {{ producto.promedio_calificaciones|default:"0" }}</span>
+                    <span class="stars">⭐ {{ producto.promedio_calificaciones|default:"Sin calificaciones" }}</span>
                     <span class="review-count">({{ producto.resena_set.count }} reseñas)</span>
                 </div>
-                <a href="/productos/{{ producto.id_producto }}/" class="btn btn-detail">Ver Detalle</a>
+                <a href="/productos/{{ producto.id_producto }}/" class="btn-detail">Ver Detalle</a>
             </div>
         </div>
         {% empty %}

@@ -8,8 +8,10 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('productos/', views.lista_productos, name='lista_productos'),
     path('productos/<int:pk>/', views.detalle_producto, name='detalle_producto'),
+    path('productos/<int:pk>/resena/', views.crear_resena, name='crear_resena'),  
     path('ranking/', views.ranking, name='ranking'),
     path('admin/', admin.site.urls),
+    
 ]
 
 # Servir archivos estáticos en modo desarrollo

@@ -8,13 +8,18 @@
     <div class="detalle-container">
         <div class="detalle-header">
             <a href="/productos/" class="btn-back">← Volver a productos</a>
+            <a href="{% url 'crear_resena' producto.id_producto %}" class="btn-resena">✍️ Escribir Reseña</a>
             <h1>{{ producto.nombre }}</h1>
         </div>
 
         <div class="detalle-grid">
             <div class="detalle-info">
                 <div class="info-card">
-                    <div class="producto-icon-grande">📦</div>
+                    {% if producto.imagen_url %}
+    <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}" class="producto-img-grande">
+{% else %}
+    <div class="producto-icon-grande">📦</div>
+{% endif %}
                     <p class="producto-categoria">
                         {{ producto.id_categoria.nombre|default:"Sin categoría" }}
                     </p>
@@ -42,29 +47,28 @@
                 </div>
             </div>
 
-            <div class="detalle-resenas">
-                <h2>Reseñas de usuarios</h2>
-                {% for resena in producto.resenas.all %}
-                    {% if resena.estado == 'aprobada' %}
-                    <div class="resena-card">
-                        <div class="resena-header">
-                            <strong>{{ resena.id_usuario.nombre }}</strong>
-                            <span class="resena-calificacion">
-                                {% for i in "12345"|make_list %}
-                                    {% if forloop.counter <= resena.calificacion %}⭐{% else %}☆{% endif %}
-                                {% endfor %}
-                                ({{ resena.calificacion }}/5)
-                            </span>
-                        </div>
-                        <p class="resena-texto">{{ resena.texto|default:"Sin comentario" }}</p>
-                        <small class="resena-fecha">{{ resena.fecha_creacion|date:"d/m/Y" }}</small>
-                    </div>
-                    {% endif %}
-                {% empty %}
-                    <p>No hay reseñas para este producto aún. ¡Sé el primero en comentar!</p>
-                {% endfor %}
+            <!-- Sección de reseñas -->
+<div class="detalle-resenas">
+    <h2>📝 Reseñas de usuarios</h2>
+    
+    {% if resenas %}
+        {% for resena in resenas %}
+        <div class="resena-card">
+            <div class="resena-header">
+                <strong>{{ resena.id_usuario.nombre }}</strong>
+                <span class="resena-calificacion">
+                    {% for i in "12345"|make_list %}
+                        {% if forloop.counter <= resena.calificacion %}⭐{% else %}☆{% endif %}
+                    {% endfor %}
+                    ({{ resena.calificacion }}/5)
+                </span>
             </div>
+            <p class="resena-texto">{{ resena.texto|default:"Sin comentario" }}</p>
+            <small class="resena-fecha">{{ resena.fecha_creacion|date:"d/m/Y" }}</small>
         </div>
-    </div>
+        {% endfor %}
+    {% else %}
+        <p>No hay reseñas para este producto aún. ¡Sé el primero en comentar!</p>
+    {% endif %}
 </div>
 {% endblock %}
