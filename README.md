@@ -12,36 +12,6 @@ Sistema web desarrollado en **Django 5.2** que permite administrar un catálogo 
 - **CSS personalizado** (sin framework externo)
 - **HTML5 + JavaScript** (búsqueda en tiempo real)
 
----
-
-## 📁 Estructura del proyecto
-
-catalogo_resenas/
-├── config/ # Configuración del proyecto
-│ ├── settings.py
-│ └── urls.py
-├── apps/ # Aplicaciones del sistema
-│ ├── productos/ # Gestión de productos y categorías
-│ ├── usuarios/ # Gestión de usuarios
-│ ├── resenas/ # Gestión de reseñas
-│ └── ventas/ # Gestión de ventas y clientes
-├── templates/ # Plantillas globales
-│ ├── base.html
-│ ├── index.html
-│ └── productos/
-│ ├── lista_productos.html
-│ ├── detalle_producto.html
-│ └── crear_resena.html
-├── static/ # Archivos estáticos (CSS, JS)
-│ └── css/
-│ └── estilos.css
-├── manage.py
-├── requirements.txt
-└── README.md
-
-
----
-
 ## 📦 Instalación y ejecución
 
 Sigue estos pasos para levantar el proyecto en tu computadora:
