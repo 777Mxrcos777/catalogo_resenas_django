@@ -38,13 +38,18 @@ def crear_resena(request, pk):
     if request.method == 'POST':
         form = ResenaForm(request.POST)
         if form.is_valid():
+            nombre = form.cleaned_data['nombre']
+            email = form.cleaned_data['email']
+            usuario, created = Usuario.objects.get_or_create(
+                email=email,
+                defaults={'nombre': nombre, 'contrasena': 'temp123'}
+            )
             resena = form.save(commit=False)
             resena.id_producto = producto
-            resena.id_usuario = Usuario.objects.first()
-            resena.estado = 'aprobada'  # Para que se muestre sin moderación
+            resena.id_usuario = usuario
+            resena.estado = 'aprobada'
             resena.save()
             return redirect('detalle_producto', pk=pk)
     else:
         form = ResenaForm()
     return render(request, 'productos/crear_resena.html', {'form': form, 'producto': producto})
-

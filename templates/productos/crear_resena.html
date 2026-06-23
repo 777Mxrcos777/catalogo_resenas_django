@@ -1,32 +1,82 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Crear Reseña - {{ producto.nombre }}{% endblock %}
+{% block title %}Escribir Reseña - {{ producto.nombre }}{% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="form-container">
-        <a href="{% url 'detalle_producto' producto.id_producto %}" class="btn-back">← Volver al producto</a>
-        
-        <h1 class="page-title">📝 Escribir Reseña</h1>
-        <h2 class="producto-nombre">{{ producto.nombre }}</h2>
-        
-        <div class="form-card">
-            <form method="POST">
-                {% csrf_token %}
-                
-                <div class="form-group">
-                    <label for="id_calificacion">Calificación (1-5):</label>
-                    {{ form.calificacion }}
+    <div class="detalle-container">
+        <div class="detalle-header">
+            <a href="/productos/" class="btn-back">← Volver a productos</a>
+            <h1>{{ producto.nombre }}</h1>
+        </div>
+
+        <div class="detalle-grid">
+            <!-- Columna Izquierda: Información del producto -->
+            <div class="detalle-info">
+                <div class="info-card">
+                    {% if producto.imagen_url %}
+                        <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}" class="producto-img-grande">
+                    {% else %}
+                        <img src="https://picsum.photos/seed/{{ producto.id_producto }}/400/400" alt="{{ producto.nombre }}" class="producto-img-grande">
+                    {% endif %}
+
+                    <p class="producto-categoria">{{ producto.id_categoria.nombre|default:"Sin categoría" }}</p>
+                    <p class="producto-precio-grande">${{ producto.precio }}</p>
+                    <div class="producto-rating-detalle">
+                        <span class="stars">
+                            {% if producto.promedio_calificaciones %}
+                                {% with promedio=producto.promedio_calificaciones|floatformat:1 %}
+                                    {% if promedio >= 4.5 %}⭐⭐⭐⭐⭐
+                                    {% elif promedio >= 3.5 %}⭐⭐⭐⭐
+                                    {% elif promedio >= 2.5 %}⭐⭐⭐
+                                    {% elif promedio >= 1.5 %}⭐⭐
+                                    {% else %}⭐
+                                    {% endif %}
+                                    ({{ promedio }})
+                                {% endwith %}
+                            {% else %}
+                                ⭐ Sin calificaciones
+                            {% endif %}
+                        </span>
+                        <span class="review-count">
+                            {{ producto.resena_set.count }} reseñas
+                        </span>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="id_texto">Comentario:</label>
-                    {{ form.texto }}
+            </div>
+
+            <!-- Columna Derecha: Formulario de reseña -->
+            <div class="detalle-resenas">
+                <h2>✍️ Escribir Reseña</h2>
+                <div class="form-card">
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="id_nombre">Nombre:</label>
+                            {{ form.nombre }}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="id_email">Correo electrónico:</label>
+                            {{ form.email }}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="id_calificacion">Calificación:</label>
+                            {{ form.calificacion }}
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="id_texto">Comentario:</label>
+                            {{ form.texto }}
+                        </div>
+                        
+                        <button type="submit" class="btn-submit">⭐ Enviar Reseña</button>
+                    </form>
                 </div>
-                
-                <button type="submit" class="btn-submit">⭐ Enviar Reseña</button>
-            </form>
+            </div>
         </div>
     </div>
 </div>
